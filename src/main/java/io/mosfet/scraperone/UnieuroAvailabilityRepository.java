@@ -21,14 +21,19 @@ public class UnieuroAvailabilityRepository implements AvailabilityRepository {
     }
 
     @Override
-    public PlaystationAvailability retrieveAvailability() throws IOException, InterruptedException {
+    public PlaystationAvailability retrieveAvailability() {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(host + URL))
                 .setHeader(httpHeadersUtils.USER_AGENT, httpHeadersUtils.USER_AGENT_VALUE)
                 .build();
 
-        HttpResponse<String> httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> httpResponse = null;
+        try {
+            httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            throw new AvailabilityException(e);
+        }
 
         Document document = Jsoup.parse(httpResponse.body());
 
