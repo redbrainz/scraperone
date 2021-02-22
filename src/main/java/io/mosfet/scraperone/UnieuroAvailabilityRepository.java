@@ -32,6 +32,8 @@ public class UnieuroAvailabilityRepository implements AvailabilityRepository {
         try {
             httpResponse = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e) {
+            Thread.currentThread().interrupt();
+
             throw new AvailabilityException(e);
         }
 

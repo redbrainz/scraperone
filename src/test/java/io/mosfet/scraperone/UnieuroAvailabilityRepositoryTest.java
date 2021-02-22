@@ -14,7 +14,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class UnieuroAvailabilityRepositoryTest {
+class UnieuroAvailabilityRepositoryTest {
 
     @Mock
     public HttpClient httpClient;
@@ -29,8 +29,7 @@ public class UnieuroAvailabilityRepositoryTest {
 
         when(httpClient.send(any(HttpRequest.class), any(HttpResponse.BodyHandler.class))).thenThrow(AvailabilityException.class);
 
-        UnieuroAvailabilityRepository availabilityRepository = new UnieuroAvailabilityRepository(
-                httpClient, "http://localhost");
+        UnieuroAvailabilityRepository availabilityRepository = new UnieuroAvailabilityRepository(httpClient, "http://localhost");
 
         assertThrows(AvailabilityException.class, availabilityRepository::retrieveAvailability);
     }

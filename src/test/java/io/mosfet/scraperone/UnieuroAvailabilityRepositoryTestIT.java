@@ -27,7 +27,7 @@ class UnieuroAvailabilityRepositoryTestIT {
     }
 
     @Test
-    void checkAvailabilityFromUnieuro() throws IOException, InterruptedException {
+    void checkAvailabilityFromUnieuro() throws IOException {
 
         HttpClient httpClient = HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_2)
