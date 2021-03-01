@@ -1,5 +1,7 @@
 package io.mosfet.scraperone;
 
+import io.mosfet.scraperone.exception.AvailabilityException;
+import io.mosfet.scraperone.repository.UnieuroAvailabilityRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

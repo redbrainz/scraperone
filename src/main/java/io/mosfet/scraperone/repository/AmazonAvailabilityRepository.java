@@ -1,5 +1,9 @@
-package io.mosfet.scraperone;
+package io.mosfet.scraperone.repository;
 
+import io.mosfet.scraperone.exception.AvailabilityException;
+import io.mosfet.scraperone.domain.utils.HttpHeadersUtils;
+import io.mosfet.scraperone.domain.PlaystationAvailability;
+import io.mosfet.scraperone.port.AvailabilityRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -9,30 +13,31 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class UnieuroAvailabilityRepository implements AvailabilityRepository {
+public class AmazonAvailabilityRepository implements AvailabilityRepository {
 
-    public static final String URL = "/online/Console-Playstation-5/PlayStation-5-pidSONPS5DISC";
+    private static final String URL = "/Sony-PlayStation-5/dp/B08KJF2D25/ref=as_li_ss_tl?th=1&linkCode=sl1&tag=offcl-21&linkId=954db62b8906f088fcd3f47a24d45235&language=it_IT";
     private final HttpClient httpClient;
     private final String host;
 
-    public UnieuroAvailabilityRepository(HttpClient httpClient, String host) {
+    public AmazonAvailabilityRepository(HttpClient httpClient, String host) {
         this.httpClient = httpClient;
         this.host = host;
     }
 
     @Override
     public PlaystationAvailability retrieveAvailability() {
+
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(host + URL))
                 .setHeader(HttpHeadersUtils.USER_AGENT, HttpHeadersUtils.USER_AGENT_VALUE)
+                .setHeader(HttpHeadersUtils.CONTENT_TYPE, HttpHeadersUtils.CONTENT_TYPE_VALUE)
                 .build();
 
         HttpResponse<String> httpResponse = call(request);
-
         Document document = Jsoup.parse(httpResponse.body());
 
-        boolean availability = document.getElementsByClass("product-availability").toString().contains("Non Disponibile");
+        boolean availability = document.getElementById("availability").toString().contains("Non disponibile.");
 
         return new PlaystationAvailability(!availability);
     }
@@ -42,7 +47,6 @@ public class UnieuroAvailabilityRepository implements AvailabilityRepository {
             return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (IOException | InterruptedException e) {
             Thread.currentThread().interrupt();
-
             throw new AvailabilityException(e);
         }
     }

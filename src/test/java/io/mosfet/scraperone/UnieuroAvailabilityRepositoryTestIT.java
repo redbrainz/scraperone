@@ -1,5 +1,7 @@
 package io.mosfet.scraperone;
 
+import io.mosfet.scraperone.domain.PlaystationAvailability;
+import io.mosfet.scraperone.repository.UnieuroAvailabilityRepository;
 import org.junit.jupiter.api.Test;
 import org.mockserver.model.HttpResponse;
 

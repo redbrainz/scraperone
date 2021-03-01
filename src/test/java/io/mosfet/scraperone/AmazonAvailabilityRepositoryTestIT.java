@@ -1,5 +1,6 @@
 package io.mosfet.scraperone;
 
+import io.mosfet.scraperone.repository.AmazonAvailabilityRepository;
 import org.junit.jupiter.api.Test;
 import org.mockserver.model.HttpResponse;
 

@@ -1,4 +1,4 @@
-package io.mosfet.scraperone;
+package io.mosfet.scraperone.domain.utils;
 
 public class HttpHeadersUtils {
     public static final String USER_AGENT = "user-agent";

@@ -1,4 +1,4 @@
-package io.mosfet.scraperone;
+package io.mosfet.scraperone.domain;
 
 public class PlaystationAvailability {
 
