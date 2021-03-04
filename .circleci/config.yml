@@ -8,7 +8,8 @@ executors:
 
 orbs:
   # Declare a dependency on the welcome-orb
-  maven: circleci/maven@0.0.12 
+  maven: circleci/maven@0.0.12
+  heroku: circleci/heroku@0.0.10
   # Orchestrate or schedule a set of jobs
 workflows:
   maven_test: 
@@ -19,4 +20,9 @@ workflows:
             parameters:
               executor:
                 - j11
-
+      - heroku/deploy-via-git:
+          requires:
+            - build # only run deploy-via-git job if the build job has completed
+          filters:
+            branches:
+              only: master # only run deploy-via-git job on master branch
