@@ -12,12 +12,12 @@ orbs:
   heroku: circleci/heroku@0.0.10
   # Orchestrate or schedule a set of jobs
 workflows:
-  heroku/deploy-via-git:
-    requires:
-      - build # only run deploy-via-git job if the build job has completed
-    filters:
-      branches:
-        only: master # only run deploy-via-git job on master branch
+  heroku_deploy:
+    jobs:
+      - heroku/deploy-via-git:
+          filters:
+            branches:
+              only: master # only run deploy-via-git job on master branch
   maven_test: 
   # Name the workflow "welcome"
      jobs:
