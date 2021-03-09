@@ -8,10 +8,6 @@ an academic exercise of scraping ecommerce for ps5 availability
 * jdk11
 * jsoap
 
-## Contributions
-
-* **Giovanni Panice** - [mosfet.io](https://mosfet.io)
-* **Vincenzo Orefice** - [linkedin profile](https://www.linkedin.com/in/vincenzo-orefice-93785511b/)
 
 ## License
 
